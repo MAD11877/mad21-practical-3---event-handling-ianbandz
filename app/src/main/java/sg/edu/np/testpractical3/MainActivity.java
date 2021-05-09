@@ -1,4 +1,4 @@
-package sg.edu.np.mad.madpractical;
+package sg.edu.np.testpractical3;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     User u;
@@ -32,9 +33,11 @@ public class MainActivity extends AppCompatActivity {
     private void setFollowBtn() {
         Button b = findViewById(R.id.btnFollow);
         if(u.followed) {
+            Toast.makeText(getApplicationContext(), "Followed", Toast.LENGTH_LONG).show();
             b.setText("Unfollow");
         }
         else {
+            Toast.makeText(getApplicationContext(), "UnFollowed", Toast.LENGTH_LONG).show();
             b.setText("Follow");
         }
     }
