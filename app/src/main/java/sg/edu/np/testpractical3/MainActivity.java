@@ -2,6 +2,8 @@ package sg.edu.np.testpractical3;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,21 +13,24 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     User u;
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d("Debug", "create");
 
+        Intent rec = getIntent();
+        int value = rec.getIntExtra("id",0);
         u = new User();
         u.name = "MAD";
         u.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";
         u.id = 1;
         u.followed = false;
 
-        TextView name = findViewById(R.id.txtName);
-        name.setText(u.name);
-        TextView description = findViewById(R.id.txtDescription);
+        TextView name = findViewById(R.id.name);
+        name.setText(u.name + " " + value);
+        TextView description = findViewById(R.id.description);
         description.setText(u.description);
         setFollowBtn();
     }
@@ -33,16 +38,18 @@ public class MainActivity extends AppCompatActivity {
     private void setFollowBtn() {
         Button b = findViewById(R.id.btnFollow);
         if(u.followed) {
-            Toast.makeText(getApplicationContext(), "Followed", Toast.LENGTH_LONG).show();
             b.setText("Unfollow");
         }
         else {
-            Toast.makeText(getApplicationContext(), "UnFollowed", Toast.LENGTH_LONG).show();
             b.setText("Follow");
         }
     }
     public void onFollowClick(View v) {
         u.followed = !u.followed;
+        if(u.followed)
+            Toast.makeText(this, "Followed", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(this,"Unfollowed", Toast.LENGTH_SHORT).show();
         setFollowBtn();
     }
 
